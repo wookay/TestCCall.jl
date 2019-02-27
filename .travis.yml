@@ -4,26 +4,13 @@ notifications:
 
 language: julia
 
+os: osx
+
 julia:
   - 1.1
-
-matrix:
-  exclude:
-    - os: windows
-      language: julia
-
-  include:
-    - os: linux
-    - os: osx
-
-    - os: windows
-      language: sh
-      before_install:
-        - choco install julia
 
 before_script:
   - julia --color=yes -e 'using Pkg; pkg"precompile"'
 
 script:
-  - if [[ "$TRAVIS_OS_NAME" != windows ]] ; then julia --color=yes --project=. -e 'using Pkg; Pkg.test()' ; fi
-  - if [[ "$TRAVIS_OS_NAME" == windows ]] ; then julia --color=yes -e 'using Pkg; pkg"dev ."; pkg"test TestCCall"' ; fi
+  - julia --color=yes --project=. -e 'using Pkg; Pkg.test()'
