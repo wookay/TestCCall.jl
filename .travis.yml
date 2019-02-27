@@ -24,5 +24,5 @@ before_script:
   - julia --color=yes -e 'using Pkg; pkg"precompile"'
 
 script:
-  - if [[ "$TRAVIS_OS_NAME" != windows ]] ; then julia --color=yes -e 'using Pkg; Pkg.test()' ; fi
+  - if [[ "$TRAVIS_OS_NAME" != windows ]] ; then julia --color=yes --project=. -e 'using Pkg; Pkg.test()' ; fi
   - if [[ "$TRAVIS_OS_NAME" == windows ]] ; then julia --color=yes -e 'using Pkg; pkg"dev ."; pkg"test TestCCall"' ; fi
